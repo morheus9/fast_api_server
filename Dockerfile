@@ -1,4 +1,3 @@
-# install python in the container
 FROM python:3.10-alpine3.15
 # setup workdir
 WORKDIR /usr/src/app
