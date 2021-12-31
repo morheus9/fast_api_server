@@ -7,6 +7,7 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir --upgrade -r ./requirements.txt
 # copy the local "./" folder to the "/app" fodler in the container
 COPY . .
+EXPOSE 80
 # execute the command python main.py (in the WORKDIR) to start the app
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
 #docker build -t python:v1_alphine .
