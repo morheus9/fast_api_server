@@ -21,4 +21,4 @@ jobs:
     - name: Publish image
       env: 
         IMAGE_NAME: fast_api_server
-      run: docker push morheus9/fast_api_server/builds
+      run: docker push morheus9/fast_api_server
