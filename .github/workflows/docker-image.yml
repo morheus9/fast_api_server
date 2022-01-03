@@ -21,4 +21,4 @@ jobs:
     - name: Publish image
       env: 
         IMAGE_NAME: fast_api_server
-      run: docker push "docker.pkg.github.com/morheus9/fast_api_server{{ steps.global_env.outputs.IMAGE_NAME }}"
+      run: docker push morheus9/fast_api_server/builds
