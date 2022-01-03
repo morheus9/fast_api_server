@@ -3,4 +3,4 @@
 Status of Last Deployment:<br>
 
 [![YourActionName Actions Status](https://github.com/morheus9/Fast_api_server/workflows/Pylint/badge.svg)](https://github.com/morheus9/Fast_api_server/actions)
-
+[![YourActionName Actions Status](https://github.com/morheus9/Fast_api_server/workflows/Docker Image CI/badge.svg)](https://github.com/morheus9/Fast_api_server/actions)
