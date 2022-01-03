@@ -17,8 +17,12 @@ jobs:
     
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+  
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     
-    - name: Publish image
-      env: 
-        IMAGE_NAME: fast_api_server
-      run: docker push morheus9/fast_api_server
+    - name: deploy
+      run: echo "deploy"
+  
