@@ -15,4 +15,5 @@ app.mount("/static", StaticFiles(directory="static"), name="static")  # defines 
 #returns an HTML page
 @app.get('/', response_class=HTMLResponse)
 async def index(request: Request):
+    """ Return html """
     return templates.TemplateResponse('index.html', {'request': request})
