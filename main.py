@@ -1,3 +1,6 @@
+"""
+Imports.
+"""
 from fastapi import FastAPI
 from fastapi import Request
 from starlette.responses import HTMLResponse
@@ -11,5 +14,9 @@ app.mount("/static", StaticFiles(directory="static"), name="static")  # defines 
 
 
 @app.get('/', response_class=HTMLResponse)
+
+"""
+returns an HTML page
+"""
 async def index(request: Request):
-    return templates.TemplateResponse('index.html', {'request': request})  # returns an HTML page
+    return templates.TemplateResponse('index.html', {'request': request})
