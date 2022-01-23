@@ -16,4 +16,5 @@ pipeline {
              sh 'ssh root@ub1 \'hostname\''
                     }
                                 }
-            }
+                 }
+}
