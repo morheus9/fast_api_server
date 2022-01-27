@@ -14,7 +14,8 @@ pipeline {
         stage('create docker image') {
             steps {
                 echo '===================== start building image ====================='
-                sh 'docker build . '
+                sh 'docker build -t python:v1_alphine . '
+                sh 'docker run -d -p 80:80 python:v1_alphine '
             }
         }
     }
