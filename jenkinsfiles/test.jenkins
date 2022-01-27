@@ -18,10 +18,5 @@ pipeline {
             }
         }
     }
-        stage('Second step') {
-            steps {
-                sh 'ssh pingvinus@ub1 \'uptime\''
-            }
-        }
 }
 
