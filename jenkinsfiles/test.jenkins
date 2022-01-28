@@ -12,11 +12,26 @@ pipeline {
         timestamps()
     }
     stages {
+        stage('create docker login') {
+            steps {
+                echo '===================== docker login ====================='
+                withCredentials([usernamePassword(credentialsID: 'docker_hub_morheus', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                docker login -u $USERNAME -p $PASSWORD
+                """
+                }
+            }
+        }
         stage('create docker image') {
             steps {
                 echo '===================== start building image ====================='
-                sh 'docker build -t python:v1_alphine . '
-                sh 'docker run -d -p 80:80 python:v1_alphine '
+                sh 'docker build -t morheus/fastapi:latest . '
+            }
+        }
+        stage('push docker image') {
+            steps {
+                echo '===================== push building image ====================='
+                sh 'docker push -t morheus/fastapi:latest . '
             }
         }
     }
