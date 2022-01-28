@@ -31,7 +31,7 @@ pipeline {
         stage('push docker image') {
             steps {
                 echo '===================== push building image ====================='
-                sh 'docker push -t morheus/fastapi:latest . '
+                sh 'docker push morheus/fastapi:latest . '
             }
         }
     }
