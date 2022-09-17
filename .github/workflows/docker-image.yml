@@ -29,7 +29,6 @@ jobs:
          with:
            tags: |
                  morheus/fast_api_app_from_git:latest
-           push: ${{ github.ref == 'refs/heads/main' }}
         
        - name: Image digest
          run: echo ${{ steps.docker_build.outputs.digest }}
