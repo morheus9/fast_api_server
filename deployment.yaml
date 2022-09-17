@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: rollingUpdate
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    containers:
+      - image: morheus/fast_api_app_from_git:latest
+        name: flask
+        ports:
+          - containerPort: 80
+        readinessProbe:
+          failureTreshhold: 3
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        livenessProbe:
+          failureTreshhold: 3
+          httpGet:
+            path: /
+            port: 80
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            initialDelaySeconds: 10
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 300Mi
+            memory: 300Mi

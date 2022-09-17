@@ -1,4 +1,4 @@
-FROM python:3.10-alpine3.15
+FROM python:slim-buster
 # setup workdir
 WORKDIR /usr/src/app
 # copy the local requirements.txt file to the /app/requirements.txt in the container

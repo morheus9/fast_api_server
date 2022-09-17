@@ -1,0 +1,17 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cilium-ingress
+  namespace: default
+spec:
+  ingressClassName: cilium
+  rules:
+    - host: mymicroservices.domain.web1
+    - http:
+        paths:
+          - backend:
+              service:
+                name: flask
+                port:
+                  number: 80
