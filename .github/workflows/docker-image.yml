@@ -11,18 +11,18 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-    
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build -t morheus /
+           docker tag morheus:latest morheus/fast_api_app_from_git:app /
+           docker login -u $USERNAME -p $PASSWORD /
+           docker push morheus/fast_api_app_from_git:app
   
   deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    
     - name: deploy
       run: echo "deploy"
   
