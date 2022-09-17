@@ -27,14 +27,7 @@ jobs:
        - name: Build image and push to Docker Hub and GitHub Container Registry
          uses: docker/build-push-action@v2
          with:
-           tags: |
-                 morheus/fast_api_app_from_git:latest
-        
-       - name: Image digest
-         run: echo ${{ steps.docker_build.outputs.digest }}
-         
-
-
-      
-
-  
+           context: .
+           file: ./Dockerfile
+           push: true
+           tags: ${{ secrets.USERNAME }}/fast_api_app_from_git:latest
