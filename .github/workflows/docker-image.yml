@@ -30,4 +30,4 @@ jobs:
            context: .
            file: ./Dockerfile
            push: true
-           tags: ${{ secrets.USERNAME }}/fast_api_app_from_git:latest
+           tags: ${{ secrets.USERNAME }}/fast-api-app-from-git:latest
