@@ -1,17 +1,16 @@
 apiVersion: v1
 kind: Service # Type of kubernetes resource
 metadata:
-  name: fast_api-service # Name of the resource
+  name: fast-api-service # Name of the resource
   namespace: default
   labels:
-    app: fast_api-service
+    app: fast-api-service
 spec:
-  type: NodePort # A port is opened on each node in your cluster via Kube proxy.
+  type: ClusterIP # A port is opened on each node in your cluster via Kube proxy.
   ports: # Take incoming HTTP requests on port 9090 and forward them to the targetPort of 8080
     - name: http
-      targetPort: 80
-      port: 8000
-
+      targetPort: 3000
+      port: 80
       protocol: TCP
   selector:
-    app: fast_api # Map any pod with label app=go-hello-world to this service
+    app: fast-api # Map any pod with label app=go-hello-world to this service
