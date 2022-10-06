@@ -1,0 +1,9 @@
+image:
+  repository: morheus/express
+  release: app1
+  pullPolicy: IfNotPresent
+  replicaCount: 2
+
+serviceName: fast-api
+
+containerPort: 3000

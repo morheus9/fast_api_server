@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceName }}
+  labels:
+    app: {{ .Values.serviceName }}
+spec:
+  replicas: {{ .Values.image.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceName }} 
+  template: 
+    metadata:
+      labels: 
+        app: {{ .Values.serviceName }}
+    spec: 
+      containers:
+        - name: {{ .Values.serviceName }}
+          image: image: "{{ .Values.image.repository }}:{{ .Values.image.release }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.containerPort }}
+              scheme: HTTP
+            initialDelaySeconds: 20
+            successThreshold: 5
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.containerPort }}
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 20
+            timeoutSeconds: 5
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 200Mi
+      terminationGracePeriodSeconds: 60

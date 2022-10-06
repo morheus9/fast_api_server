@@ -1,0 +1,15 @@
+apiVersion: V2
+name: App-HelmChart
+description: My Helm chart
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+keywords:
+  - http
+  - https
+  - something
+
+maintainers:
+  - name: Nagornov Vyacheslav
+    email: nodegopher@gmail.com
