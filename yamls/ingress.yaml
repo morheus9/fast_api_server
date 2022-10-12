@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fast-api-ingress
+  namespace: default
+  labels:
+    app: fast-api-ingress
+  annotations:
+spec:
+  ingressClassName: nginx
+  rules:
+    #    - host: k8sworker1.example.net
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: fast-api-service
+                port:
+                  number: 80
+#          - path: /about
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: fast-api-service
+#                port:
+#                  number: 80

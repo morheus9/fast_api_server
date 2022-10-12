@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "helm-express.fullname" . }}
+  namespace: {{ .Values.nameSpace }}
+  labels:
+    app: {{ include "helm-express.fullname" . }}
+    {{- include "helm-express.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.application.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      {{- include "helm-express.selectorLabels" . | nindent 6 }}
+  template: 
+    metadata:
+      labels: 
+        {{- include "helm-express.selectorLabels" . | nindent 8 }}
+      {{- with .Values.application.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec: 
+      containers:
+        - name: {{ include "helm-express.fullname" . }}
+          image: "{{ .Values.application.repository }}:{{ .Values.application.release }}"
+          imagePullPolicy: {{ .Values.application.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}
+          {{- with .Values.application.probes }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.application.resources | nindent 12 }}
+      terminationGracePeriodSeconds: {{ .Values.application.terminationGracePeriodSeconds }}
+  

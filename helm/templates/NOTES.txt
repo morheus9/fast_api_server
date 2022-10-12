@@ -1,0 +1,18 @@
+######################################################################
+ Hello, your app deployed. Look at the http://k8sworker1.example.net/
+######################################################################
+
+Port of your app: {{ .Values.service.targetPort }}
+Port of your service: {{ .Values.service.port }}
+Ingress: {{ .Values.ingress.ingressClassName }}
+Repository: {{ .Values.application.repository }}
+Tag: {{ .Values.application.release }}
+Replica count: {{ .Values.application.replicaCount }}
+Pull policy: {{ .Values.application.pullPolicy }}
+Requests:
+ - cpu: {{ .Values.application.resources.requests.cpu }}
+ - ram: {{ .Values.application.resources.requests.memory }}
+Limits: 
+ - cpu: {{ .Values.application.resources.limits.cpu }}
+ - ram: {{ .Values.application.resources.limits.memory }}
+SelectorLabels: {{- include "helm-express.selectorLabels" . | nindent 2 }}

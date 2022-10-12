@@ -1,0 +1,71 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fast-api
+  labels:
+    app: fast-api
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: fast-api
+  template:
+    metadata:
+      labels:
+        app: fast-api
+    spec:
+      containers:
+        - name: fast-api
+          image: morheus/express:app1
+          imagePullPolicy: Always
+# ENV
+#          env:
+#            - name: TEST_1  
+#              value: foo
+# ENV FROM SECRETS
+#            - name: TEST_2
+#              valueFrom:
+#                secretKeyRef:
+#                  name: TEST_2  
+#                  value: foo
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 20
+            successThreshold: 5
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 20
+            timeoutSeconds: 5
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 200Mi
+#  CREATE FILE FROM CONFIGMAP /etc/nginx/conf.d/default.conf       
+#          volumeMounts:
+#            - name: config
+#              mountPath: /etc/nginx/conf.d/
+#      volumes:
+#        - name: config
+#          configMap:
+#            name: my-configmap
+#
+      terminationGracePeriodSeconds: 30

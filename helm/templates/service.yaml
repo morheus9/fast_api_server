@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "helm-express.fullname" . }}-srv
+  namespace: {{ .Values.nameSpace }}
+  labels:
+    app: {{ include "helm-express.fullname" . }}-srv
+    {{- include "helm-express.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: http
+      targetPort: {{ .Values.service.targetPort }}
+      port: {{ .Values.service.port }}
+  selector:
+    {{- include "helm-express.selectorLabels" . | nindent 4 }}

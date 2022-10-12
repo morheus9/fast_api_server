@@ -1,0 +1,30 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "helm-express.fullname" . }}-ingress
+  namespace: {{ .Values.nameSpace }}
+  labels:
+    app: {{ include "helm-express.fullname" . }}-ingress
+      {{- include "helm-express.labels" . | nindent 4 }}
+  annotations:
+spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  rules:
+    #    - host: k8sworker1.example.net
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "helm-express.fullname" . }}-srv
+                port:
+                  number: {{ .Values.service.port }}
+#          - path: /about
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: {{ include "helm-express.fullname" . }}-srv
+#                port:
+#                  number: {{ .Values.service.port }}
