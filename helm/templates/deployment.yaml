@@ -19,12 +19,13 @@ spec:
       {{- include "helm-express.selectorLabels" . | nindent 6 }}
   template: 
     metadata:
-      labels: 
-        {{- include "helm-express.selectorLabels" . | nindent 8 }}
-      {{- with .Values.application.podAnnotations }}
       annotations:
+        configCheckSum: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      {{- with .Values.application.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      labels: 
+        {{- include "helm-express.selectorLabels" . | nindent 8 }}
     spec: 
       containers:
         - name: {{ include "helm-express.fullname" . }}
